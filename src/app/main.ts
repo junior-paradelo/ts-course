@@ -1,15 +1,27 @@
-import { addProduct } from './products/product.service';
+import { faker } from '@faker-js/faker';
+import { addProduct, products } from './products/product.service';
 
-addProduct({
-  id: 1,
-  title: 'product1',
-  createdAt: new Date(),
-  updatedAt: new Date(),
-  stock: 90,
-  category: {
-    id: 1,
-    name: 'category1',
-    createdAt: new Date(),
-    updatedAt: new Date(),
-  },
-});
+for (let index = 0; index < 50; index++) {
+  addProduct({
+    id: faker.string.uuid(),
+    description: faker.commerce.productDescription(),
+    title: faker.commerce.productName(),
+    image: faker.image.url(),
+    createdAt: faker.date.recent(),
+    updatedAt: faker.date.recent(),
+    stock: faker.datatype.number({ min: 10, max: 100 }),
+    color: faker.color.human(), // Corregido el método para obtener un color
+    size: faker.helpers.arrayElement(['S', 'M', 'L', 'XL']), // Corregido el método para obtener un elemento aleatorio de un array
+    price: parseFloat(faker.commerce.price()), // Corregido el método para obtener un precio y parsearlo a float
+    isNew: faker.datatype.boolean(),
+    tags: [faker.lorem.word(), faker.lorem.word(), faker.lorem.word()], // Ejemplo de tres palabras aleatorias como tags
+    category: {
+      id: faker.string.uuid(),
+      name: faker.commerce.department(),
+      createdAt: faker.date.recent(),
+      updatedAt: faker.date.recent(),
+    },
+  });
+}
+
+console.log(products);
