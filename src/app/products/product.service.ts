@@ -38,3 +38,6 @@ export const updateProduct = (
 export const findProducts = (dto: FindProductDto): Product[] => {
   return products;
 };
+
+// can use typing for index
+const methodExample = (id: Product['id']) => {};
